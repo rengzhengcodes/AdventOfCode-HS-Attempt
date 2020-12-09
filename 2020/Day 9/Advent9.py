@@ -4,8 +4,7 @@ with open("input.txt") as f:
 	f = f.read()
 	cypher = list(f.split("\n"))
 
-for i in range(len(cypher)):
-	cypher[i] = int(cypher[i])
+cypher = [int(element) for element in cypher]
 
 def debug(s):
 	if True:
@@ -31,7 +30,7 @@ def equal_last_x(num, last_x):
 	return False
 
 last_n = 25
-weakness = 0;
+weakness = 0
 
 for i in range(last_n, len(cypher)):
 	num = cypher[i]
@@ -43,8 +42,8 @@ for i in range(last_n, len(cypher)):
 		break
 
 
-for i in range(len(cypher)):
-	for j in range(i + 2, len(cypher)):
+for i in range(cypher.index(weakness)):
+	for j in range(i + 2, cypher.index(weakness)):
 		previous = cypher[i:j]
 		sum = 0
 		for n in previous:
