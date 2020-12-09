@@ -46,7 +46,7 @@ for i in range(cypher.index(weakness)):
 	for j in range(i + 2, cypher.index(weakness)):
 		previous = cypher[i:j]
 		s = sum(previous)
-
+		previous.sort()
 		if s == weakness:
 			print(previous[0] + previous[-1])
 
