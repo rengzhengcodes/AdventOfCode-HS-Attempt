@@ -45,9 +45,19 @@ for i in range(last_n, len(cypher)):
 for i in range(cypher.index(weakness)):
 	for j in range(i + 2, cypher.index(weakness)):
 		previous = cypher[i:j]
-		sum = 0
-		for n in previous:
-			sum += n
+		s = sum(previous)
 
-		if sum == weakness:
+		if s == weakness:
 			print(previous[0] + previous[-1])
+
+##previous = [cypher[0]]
+##for i in range(1, len(cypher)):
+##	previous.append(cypher[i])
+##	s = sum(previous)
+##
+##	if (s == weakness):
+##		print(previous[0] + previous[-1])
+##		break
+##	elif s > weakness:
+##		while (s > weakness and len(previous) > 1):
+##			del previous[0]
