@@ -56,7 +56,12 @@ print(combos)
 
 deltas = itertools.zip_longest(jolts[:-1], jolts[1:])
 deltas = [(b-a) for a,b in deltas]
-branches = [1, 1, deltas[:3].count(1)]
+branches = [1, 1]
+
+if deltas[1] + deltas[0] <= 3:
+	branches.append(2)
+else:
+	branches.append(1)
 
 for i in range(3, len(jolts)):
 	branches.append(branches[i-1])
