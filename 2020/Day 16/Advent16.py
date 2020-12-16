@@ -1,4 +1,4 @@
-parts = open("input.txt").read().split("\n\n")
+parts = open("test2.txt").read().split("\n\n")
 intervals_raw = parts[0]
 intervals_raw = list(intervals_raw.split("\n"))
 intervals = dict()
@@ -19,7 +19,6 @@ def in_a_interval(value, intervals):
 		#print(interval)
 		if interval[0] <= value <= interval[1]:#if in intervaltype(interval[0])
 			return True
-			break
 	return False
 
 def in_a_series_of_intervals(value, series):
@@ -36,6 +35,22 @@ for ticket in taken_tickets:
 		if not in_a_series_of_intervals(field, intervals.values()):
 			error_rate += field
 print(error_rate)
+
+parts = open("input.txt").read().split("\n\n")
+intervals_raw = parts[0]
+intervals_raw = list(intervals_raw.split("\n"))
+intervals = dict()
+for interval in intervals_raw:
+	field, valids = interval.split(": ")
+	valids = valids.split(" or ")
+	valids = [(int(start), int(end)) for start, end in [valid.split("-") for valid in valids]]
+	#print(valids)
+	intervals[field] = valids
+#print(intervals)
+my_ticket = tuple([int(field) for field in parts[1].split("\n")[1].split(",")])
+
+taken_tickets = [tuple([int(field) for field in ticket.split(",")]) for ticket in parts[2].split("\n")[1:]]
+#print(intervals.values())
 
 #discarding invalid tickets
 valid_tickets = [my_ticket]
@@ -69,13 +84,29 @@ for field, all_intervals in intervals.items():
 		correct_field = values_in_interval(fields[i], all_intervals)
 		if correct_field and field not in my_ticket_fields.keys():
 			my_ticket_fields[field] = [my_ticket[i]]
-			break
 		elif correct_field:
-			my_ticket_fields[field].append([my_ticket[i]])
-			break
+			my_ticket_fields[field].append(my_ticket[i])
 
-print(my_ticket_fields)
+def prune(dictionary):
+	prunes = []
+	for i in range(len(dictionary.items())):
+		for key, value in dictionary.items():
+			if len(value) > 1:
+				for val in value:
+					if val in prunes:
+						del value[value.index(val)]
+				dictionary[key] = value
+			if len(value) == 1:
+				prunes.append(value[0])
+	return dictionary
 
+product = 1
+pruned = prune(my_ticket_fields)
+
+for key, value in pruned.items():
+	if "departure" in key:
+		product *= value[0]
+print(product)
 #product = 1
 #for fields in intervals.keys():
 #	if "departure" in fields:
