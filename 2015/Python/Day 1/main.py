@@ -1,22 +1,43 @@
-import requests
 import sys
 from os import path
 # adds repo of boiler
 boiler_parent = path.dirname(path.dirname(path.abspath(__file__)))
 print(boiler_parent)
 sys.path.append(boiler_parent)
-from boiler import session_id
+from boiler import *
 
 here = path.dirname(path.abspath(__file__)) + '/'
 
-if not path.exists(here + 'input.txt'):
-	#takes input and caches it
-	year = 2015
-	day = 1
-	uri = f'http://adventofcode.com/{year}/day/{day}/input'
+get_input(here, 2015, 1)
 
-	response = requests.get(uri, cookies={'session': session_id})
+def pt1():
+	with open(here + 'input.txt', 'r') as input:
+		input = input.read().rstrip()
+		floor = 0
 
-	with open(here + 'input.txt', 'a') as input:
-		input.write(response.text)
-		input.close()
+		for char in input:
+			if char == '(':
+				floor += 1
+			else:
+				floor -= 1
+
+		clipboard(floor)
+
+def pt2():
+	with open(here + 'input.txt', 'r') as input:
+		input = input.read().rstrip()
+		floor = 0
+		instruction = 0
+
+		while floor >= 0:
+			char = input[instruction]
+			instruction += 1
+			if char == '(':
+				floor += 1
+			else:
+				floor -= 1
+
+		clipboard(instruction)
+
+if __name__ == '__main__':
+	pt2()
