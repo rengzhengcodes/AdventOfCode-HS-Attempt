@@ -28,5 +28,7 @@ Include/
 Lib/
 Scripts/
 pyvenv.cfg
+## Cache
+__pycache__/
 # sessionID stuff that shouldn't be uploaded
 *.secret
