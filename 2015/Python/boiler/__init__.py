@@ -1,3 +1,4 @@
+import requests
 from os import path
 here = path.dirname(path.abspath(__file__)) + '/'
 # gets session id
