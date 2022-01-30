@@ -28,3 +28,5 @@ Include/
 Lib/
 Scripts/
 pyvenv.cfg
+# sessionID stuff that shouldn't be uploaded
+*.secret
