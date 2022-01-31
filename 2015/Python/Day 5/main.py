@@ -54,7 +54,7 @@ def pt2():
 				for char2 in string.ascii_lowercase:
 					segment = char1 + char2 # generates all 26^2 combinations of letter sto be repeated.
 					# print(segment)
-					if len(re.findall(segment, line)) >= 2: #findall is already non overlapping
+					if line.count(segment) >= 2: # segment is already non overlapping
 						has_double = True
 						break
 				if has_double:
