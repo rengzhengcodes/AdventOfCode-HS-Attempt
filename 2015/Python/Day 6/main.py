@@ -57,4 +57,49 @@ def pt1():
 
 	clipboard(on_count)
 
-pt1()
+def pt2():
+	#generates light grid
+	grid = list()
+	for i in range(1000):
+		grid.append(list())
+		for j in range(1000):
+			grid[i].append(0)
+
+	#print(grid)
+
+	with open(here + 'input.txt') as input:
+		for line in input:
+			#gets individual words
+			words = line.split()
+			#extracts start coordinates
+			start = words[-3].split(',')
+			start = [int(x) for x in start]
+			start = tuple(start)
+			# print(start)
+			#extracts end coordinates
+			end = words[-1].split(',')
+			end = [int(x) for x in end]
+			end = tuple(end)
+			# print(end)
+
+			if words[0] == 'toggle':
+				for i in range(start[0], end[0] + 1):
+					for j in range(start[1], end[1] + 1):
+						grid[i][j] += 2
+			else: # words[0] is turn
+				if words[1] == 'on':
+					for i in range(start[0], end[0] + 1):
+						for j in range(start[1], end[1] + 1):
+							grid[i][j] += 1
+				else: #words[1] is off
+					for i in range(start[0], end[0] + 1):
+						for j in range(start[1], end[1] + 1):
+							grid[i][j] = max(0, grid[i][j] - 1)
+	#gets number of lights on
+	brightness = 0
+	for row in grid:
+		brightness += sum(row)
+
+	clipboard(brightness)
+
+pt2()
