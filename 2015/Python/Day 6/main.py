@@ -18,6 +18,8 @@ def pt1():
 		for j in range(1000):
 			grid[i].append(False)
 
+	#print(grid)
+
 	with open(here + 'input.txt') as input:
 		for line in input:
 			#gets individual words
@@ -26,10 +28,12 @@ def pt1():
 			start = words[-3].split(',')
 			start = [int(x) for x in start]
 			start = tuple(start)
+			# print(start)
 			#extracts end coordinates
 			end = words[-1].split(',')
-			end = [int(x) for x in start]
+			end = [int(x) for x in end]
 			end = tuple(end)
+			# print(end)
 
 			if words[0] == 'toggle':
 				for i in range(start[0], end[0] + 1):
