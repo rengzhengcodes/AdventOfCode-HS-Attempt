@@ -25,7 +25,7 @@ def pt1():
 			if value.isnumeric(): # checks if the wire just gets a straight up input
 				wires[key] = int(value)
 
-		print(wires)
+		# print(wires)
 
 	def check_wire_load(wire: str) -> None:
 		# checks wire has binary value, if not, sets it
