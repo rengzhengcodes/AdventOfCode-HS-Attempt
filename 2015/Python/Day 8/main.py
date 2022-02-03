@@ -22,4 +22,16 @@ def pt1():
 
 		clipboard(raw-escaped)
 
-pt1()
+def pt2():
+	with open(here + 'input.txt') as input:
+		escapes = 0
+		# calculates # of characters needed to escape the string (what the difference represents)
+		for line in input:
+			line = line.rstrip()
+			escapes += 2 # quotes
+			escapes += line.count('"')
+			escapes += line.count('\\')
+
+		clipboard(escapes)
+
+pt2()
