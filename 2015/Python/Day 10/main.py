@@ -27,4 +27,20 @@ def pt1():
 
 	clipboard(len(string))
 
-pt1()
+def pt2():
+	with open(here + 'input.txt') as input:
+		string = input.read().rstrip()
+
+	count = 40
+	for i in range(50):
+		count_of_groups = groupby(string)
+		count_of_groups = [(label, sum(1 for element in group)) for label, group in count_of_groups] #https://stackoverflow.com/questions/34443946/count-consecutive-characters
+		# print(string)
+		# print(count_of_groups)
+		string = ''
+		for char, amount in count_of_groups:
+			string += str(amount) + char
+
+	clipboard(len(string))
+
+pt2()
