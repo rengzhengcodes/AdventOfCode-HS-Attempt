@@ -50,4 +50,46 @@ def pt1():
 
 	clipboard(pw)
 
-pt1()
+def pt2():
+	with open(here + 'input.txt') as input:
+		#converts alphanumerics to numbers
+		pw = input.read().rstrip()
+
+	def increment_pw(password: str) -> str:
+		if password[-1] == 'z': # goes in reverse
+			return increment_pw(password[0:-1]) + 'a'
+		else:
+			#print(pw[-1])
+			return password[0:-1] + chr(ord(password[-1]) + 1) # ord == ascii of char. + 1 to get to next letter
+
+	def validity_check(password: str) -> bool:
+		invalids = ('i', 'o', 'l')
+		# checks for invalid chars
+		for invalid in invalids:
+			if invalid in password:
+				return False
+		# checks for at least two unique doubles that do not overlap
+		doubles = 0
+		for char in string.ascii_lowercase:
+			doubles += password.count(char * 2)
+			if doubles >= 2:
+				break
+		if doubles < 2:
+			return False
+		#checks for increments, very naive but cheap to dev cost
+		for i in range(3, 27): #remember range is exclusive
+			#print(string.ascii_lowercase[i-3:i])
+			if string.ascii_lowercase[i-3:i] in password:
+				return True
+
+		return False # failed third validity check if you got here
+
+	def next_password(password:str) -> str:
+		while not validity_check(password):
+			password = increment_pw(password)
+
+		return password
+
+	clipboard(next_password(increment_pw(next_password(pw))))
+
+pt2()
