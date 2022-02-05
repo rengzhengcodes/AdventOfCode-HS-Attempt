@@ -12,16 +12,16 @@ here = path.dirname(path.abspath(__file__)) + '/'
 get_input(here, 2015, 11)
 
 def pt1():
-	with open(here + 'test.txt') as input:
+	with open(here + 'input.txt') as input:
 		#converts alphanumerics to numbers
 		pw = input.read().rstrip()
 
-	def increment_pw(pw: str) -> str:
-		if pw[-1] == 'z': # goes in reverse
-			return increment_pw(pw[0:-1]) + 'a'
+	def increment_pw(password: str) -> str:
+		if password[-1] == 'z': # goes in reverse
+			return increment_pw(password[0:-1]) + 'a'
 		else:
 			#print(pw[-1])
-			return pw[0:-1] + chr(ord(pw[-1]) + 1) # ord == ascii of char. + 1 to get to next letter
+			return password[0:-1] + chr(ord(password[-1]) + 1) # ord == ascii of char. + 1 to get to next letter
 
 	def validity_check(pw: str) -> bool:
 		invalids = ('i', 'o', 'l')
@@ -38,9 +38,8 @@ def pt1():
 		if doubles < 2:
 			return False
 		#checks for increments, very naive but cheap to dev cost
-		ascending_seg = False
-		for i in range(3, 26):
-			# print(string.ascii_lowercase[i-3:i])
+		for i in range(3, 27): #remember range is exclusive
+			#print(string.ascii_lowercase[i-3:i])
 			if string.ascii_lowercase[i-3:i] in pw:
 				return True
 
